@@ -93,3 +93,44 @@ VALUES
 'admin123',
 'admin'
 );
+
+INSERT INTO categories(category_name)
+VALUES
+('Electronics'),
+('Fashion'),
+('Books'),
+('Home Appliances'),
+('Sports');
+
+
+
+CREATE TABLE products(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    category_id INT,
+    product_name VARCHAR(200) NOT NULL,
+    description TEXT,
+    price DECIMAL(10,2) NOT NULL,
+    stock INT DEFAULT 0,
+    image VARCHAR(255),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    FOREIGN KEY(category_id)
+    REFERENCES categories(id)
+    ON DELETE SET NULL
+);
+
+
+CREATE TABLE cart(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    product_id INT NOT NULL,
+    quantity INT NOT NULL DEFAULT 1,
+
+    FOREIGN KEY(user_id)
+    REFERENCES users(id)
+    ON DELETE CASCADE,
+
+    FOREIGN KEY(product_id)
+    REFERENCES products(id)
+    ON DELETE CASCADE
+);
