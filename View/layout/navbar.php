@@ -1,36 +1,97 @@
 <?php
-session_start();
+if(session_status() == PHP_SESSION_NONE)
+{
+    session_start();
+}
 ?>
 
-<nav>
+<nav class="navbar">
 
-    <a href="index.php">Home</a>
+<div class="logo">
 
-    <a href="products.php">Products</a>
+<a href="index.php">
 
-    <a href="cart.php">Cart</a>
+E-Commerce
 
-    <?php
-    if(isset($_SESSION['id']))
-    {
-    ?>
-        <a href="profile.php">My Account</a>
+</a>
 
-        <a href="orders.php">My Orders</a>
+</div>
 
-        <a href="../Controller/LogoutController.php">
-            Logout
-        </a>
-    <?php
-    }
-    else
-    {
-    ?>
-        <a href="login.php">Login</a>
+<div class="links">
 
-        <a href="signup.php">Register</a>
-    <?php
-    }
-    ?>
+<a href="index.php">
+
+Home
+
+</a>
+
+<a href="products.php">
+
+Products
+
+</a>
+
+<a href="cart.php">
+
+Cart
+
+</a>
+
+<?php
+
+if(isset($_SESSION['id']))
+{
+
+?>
+
+<a href="orders.php">
+
+My Orders
+
+</a>
+
+<a href="profile.php">
+
+Profile
+
+</a>
+
+    <a href="wishlist.php">
+        Wishlist
+    </a>
+
+<a href="../Controller/LogoutController.php">
+
+Logout
+
+</a>
+
+<?php
+
+}
+else
+{
+
+?>
+
+<a href="login.php">
+
+Login
+
+</a>
+
+<a href="signup.php">
+
+Register
+
+</a>
+
+<?php
+
+}
+
+?>
+
+</div>
 
 </nav>

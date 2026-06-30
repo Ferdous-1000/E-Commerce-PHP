@@ -1,3 +1,4 @@
+```php
 <?php
 
 session_start();
@@ -30,6 +31,17 @@ if(isset($_POST['login']))
         $row =
         $result->fetch_assoc();
 
+        if(
+            isset($row['status'])
+            &&
+            $row['status'] == 'blocked'
+        )
+        {
+            die(
+            "Your account has been blocked by admin."
+            );
+        }
+
         $_SESSION['id'] =
         $row['id'];
 
@@ -47,12 +59,14 @@ if(isset($_POST['login']))
             header(
             "Location: ../View/Admin/dashboard.php"
             );
+            exit();
         }
         else
         {
             header(
             "Location: ../View/index.php"
             );
+            exit();
         }
     }
     else
@@ -65,3 +79,4 @@ if(isset($_POST['login']))
 }
 
 ?>
+```

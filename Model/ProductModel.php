@@ -194,6 +194,68 @@ function LowStockProducts($conn)
 }
 
 
+
+function ReduceStock(
+    $conn,
+    $product_id,
+    $quantity
+)
+{
+    $stmt = $conn->prepare(
+        "UPDATE products
+         SET stock = stock - ?
+         WHERE id=?"
+    );
+
+    $stmt->bind_param(
+        "ii",
+        $quantity,
+        $product_id
+    );
+
+    return $stmt->execute();
+}
+
+function UpdateProduct(
+    $conn,
+    $id,
+    $category_id,
+    $product_name,
+    $description,
+    $price,
+    $stock,
+    $image
+)
+{
+    $stmt = $conn->prepare(
+        "UPDATE products
+         SET
+         category_id=?,
+         product_name=?,
+         description=?,
+         price=?,
+         stock=?,
+         image=?
+         WHERE id=?"
+    );
+
+    $stmt->bind_param(
+        "issdisi",
+        $category_id,
+        $product_name,
+        $description,
+        $price,
+        $stock,
+        $image,
+        $id
+    );
+
+    return $stmt->execute();
+}
+
+
+
+
 }
 
 

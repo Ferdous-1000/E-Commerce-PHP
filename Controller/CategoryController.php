@@ -46,6 +46,27 @@ if(isset($_GET['delete']))
     );
 }
 
+if(isset($_POST['updateCategory']))
+{
+    $model =
+    new CategoryModel();
+
+    $conn =
+    $model->OpenConn();
+
+    $model->UpdateCategory(
+        $conn,
+        $_POST['id'],
+        $_POST['category_name']
+    );
+
+    header(
+        "Location: ../View/Admin/manage_categories.php"
+    );
+
+    exit();
+}
+
 $model->CloseConn($conn);
 
 ?>

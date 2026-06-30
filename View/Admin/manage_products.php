@@ -24,8 +24,19 @@ new CategoryModel();
 $conn =
 $productModel->OpenConn();
 
+$keyword = "";
+
+if(isset($_GET['search']))
+{
+    $keyword =
+    trim($_GET['search']);
+}
+
 $products =
-$productModel->GetProducts($conn);
+$productModel->SearchProducts(
+    $conn,
+    $keyword
+);
 
 $categories =
 $categoryModel->GetCategories($conn);
@@ -43,7 +54,7 @@ $categoryModel->GetCategories($conn);
 Manage Products
 
 </title>
-
+ <link rel="stylesheet" href="../../CSS/admin-navbar.css">
 <style>
 
 body{
@@ -77,13 +88,35 @@ th,td{
 img{
     width:80px;
 }
+.search-form{
+    margin:20px 0;
+}
 
+.search-form input{
+    width:300px;
+    padding:10px;
+}
+
+.search-form button{
+    padding:10px 15px;
+    cursor:pointer;
+}
+
+.clear-btn{
+    background:#6b7280;
+    color:white;
+    padding:10px 15px;
+    text-decoration:none;
+    border-radius:4px;
+    margin-left:5px;
+}
 </style>
 
 </head>
 
 <body>
 
+<?php include("layout/admin_navbar.php"); ?>
 <h1>
 
 Product Management
@@ -179,12 +212,34 @@ Add Product
 All Products
 
 </h2>
+<form
+method="GET"
+class="search-form">
 
+<input
+type="text"
+name="search"
+placeholder="Search Product Or Category..."
+value="<?php echo $keyword; ?>">
+
+<button
+type="submit">
+
+Search
+
+</button>
+
+<a
+href="manage_products.php"
+class="clear-btn">
+
+Clear
+
+</a>
+
+</form>
 <table>
 
-<tr>
-
-<tr>
 <tr>
     <th>ID</th>
     <th>Image</th>
@@ -195,10 +250,6 @@ All Products
     <th>Status</th>
     <th>Action</th>
 </tr>
-</tr>
-
-</tr>
-
 <?php
 
 while($row = $products->fetch_assoc())
@@ -281,6 +332,7 @@ while($row = $products->fetch_assoc())
         </a>
 
     </td>
+    
 
 </tr>
 

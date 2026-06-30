@@ -134,3 +134,65 @@ CREATE TABLE cart(
     REFERENCES products(id)
     ON DELETE CASCADE
 );
+
+
+CREATE TABLE orders(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    total_amount DECIMAL(10,2) NOT NULL,
+    status ENUM(
+        'Pending',
+        'Processing',
+        'Shipped',
+        'Delivered',
+        'Cancelled'
+    ) DEFAULT 'Pending',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    FOREIGN KEY(user_id)
+    REFERENCES users(id)
+    ON DELETE CASCADE
+);
+
+
+CREATE TABLE order_items(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    order_id INT NOT NULL,
+    product_id INT NOT NULL,
+    quantity INT NOT NULL,
+    price DECIMAL(10,2) NOT NULL,
+
+    FOREIGN KEY(order_id)
+    REFERENCES orders(id)
+    ON DELETE CASCADE,
+
+    FOREIGN KEY(product_id)
+    REFERENCES products(id)
+    ON DELETE CASCADE
+);
+
+ALTER TABLE users
+ADD status ENUM('active','blocked')
+DEFAULT 'active';
+
+ALTER TABLE orders
+ADD shipping_address TEXT;ALTER TABLE orders
+ADD shipping_address TEXT;
+
+ALTER TABLE orders
+ADD payment_method VARCHAR(50);
+
+CREATE TABLE wishlist(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT,
+    product_id INT
+);
+
+CREATE TABLE reviews(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT,
+    product_id INT,
+    rating INT,
+    review TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);

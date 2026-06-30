@@ -32,7 +32,7 @@ $order->GetAllOrders($conn);
 Manage Orders
 
 </title>
-
+<link rel="stylesheet" href="../../CSS/admin-navbar.css">
 <style>
 
 body{
@@ -63,7 +63,7 @@ button{
 </head>
 
 <body>
-
+<?php include("layout/admin_navbar.php"); ?>
 <h1>
 
 Manage Orders

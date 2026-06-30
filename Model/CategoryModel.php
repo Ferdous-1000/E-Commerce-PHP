@@ -100,7 +100,6 @@ function TotalCategories($conn)
 
 
 
-
 }
 
 ?>

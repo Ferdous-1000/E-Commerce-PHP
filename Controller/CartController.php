@@ -8,17 +8,19 @@ $cart = new CartModel();
 
 $conn = $cart->OpenConn();
 
-if(isset($_GET['add']))
+if(isset($_POST['addToCart']))
 {
     $cart->AddToCart(
         $conn,
         $_SESSION['id'],
-        $_GET['add']
+        $_POST['product_id'],
+        $_POST['quantity']
     );
 
     header(
     "Location: ../View/cart.php"
     );
+    exit();
 }
 
 if(isset($_GET['remove']))
@@ -31,4 +33,19 @@ if(isset($_GET['remove']))
     header(
     "Location: ../View/cart.php"
     );
+    exit();
+}
+
+if(isset($_POST['updateCart']))
+{
+    $cart->UpdateCartQuantity(
+        $conn,
+        $_POST['cart_id'],
+        $_POST['quantity']
+    );
+
+    header(
+    "Location: ../View/cart.php"
+    );
+    exit();
 }

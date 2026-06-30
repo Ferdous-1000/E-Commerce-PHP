@@ -57,27 +57,7 @@ class OrderModel extends Model
         return $stmt->execute();
     }
 
-    function GetOrdersByUser(
-        $conn,
-        $user_id
-    )
-    {
-        $stmt = $conn->prepare(
-            "SELECT *
-             FROM orders
-             WHERE user_id=?
-             ORDER BY id DESC"
-        );
-
-        $stmt->bind_param(
-            "i",
-            $user_id
-        );
-
-        $stmt->execute();
-
-        return $stmt->get_result();
-    }
+    
 function GetAllOrders($conn)
 {
     $sql = "
@@ -153,11 +133,48 @@ function TotalOrders($conn)
 
     return $result->fetch_assoc();
 }
+function GetOrdersByUser(
+    $conn,
+    $user_id
+)
+{
+    $stmt = $conn->prepare(
+        "SELECT *
+         FROM orders
+         WHERE user_id=?
+         ORDER BY id DESC"
+    );
 
+    $stmt->bind_param(
+        "i",
+        $user_id
+    );
 
+    $stmt->execute();
 
+    return $stmt->get_result();
+}
 
+function GetOrderById(
+    $conn,
+    $order_id
+)
+{
+    $stmt = $conn->prepare(
+        "SELECT *
+         FROM orders
+         WHERE id=?"
+    );
 
+    $stmt->bind_param(
+        "i",
+        $order_id
+    );
+
+    $stmt->execute();
+
+    return $stmt->get_result();
+}
 
 
 

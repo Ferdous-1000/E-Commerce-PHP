@@ -36,7 +36,7 @@ $model->GetCategories($conn);
 Manage Categories
 
 </title>
-
+ <link rel="stylesheet" href="../../CSS/admin-navbar.css">
 <style>
 
 body{
@@ -72,6 +72,7 @@ th,td{
 
 <body>
 
+<?php include("layout/admin_navbar.php"); ?>
 <h1>
 
 Category Management
@@ -139,7 +140,17 @@ echo $row['category_name'];
 
 <td>
 
-<a href="../../Controller/CategoryController.php?delete=<?php echo $row['id']; ?>">
+<a
+href="edit_category.php?id=<?php echo $row['id']; ?>">
+
+Edit
+
+</a>
+
+|
+
+<a
+href="../../Controller/CategoryController.php?delete=<?php echo $row['id']; ?>">
 
 Delete
 
